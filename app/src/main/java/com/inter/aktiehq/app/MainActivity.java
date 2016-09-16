@@ -1,9 +1,5 @@
 package com.inter.aktiehq.app;
 
-/**
- * Created by jonas on 28.08.2016.
- */
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.bluetooth.le.BluetoothLeScanner;
