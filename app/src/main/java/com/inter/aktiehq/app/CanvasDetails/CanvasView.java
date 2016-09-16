@@ -1,4 +1,4 @@
-package com.inter.aktiehq.app;
+package com.inter.aktiehq.app.CanvasDetails;
 
 /*
     Klasse zum zeichnen der Elemente der Details
