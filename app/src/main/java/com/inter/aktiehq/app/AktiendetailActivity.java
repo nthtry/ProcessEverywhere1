@@ -15,17 +15,25 @@ import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class AktiendetailActivity extends AppCompatActivity {
 
+    private CanvasView customCanvas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_beacondetail);
+        setContentView(R.layout.canvas);
+        customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
     }
+
+    public void clearCanvas(View v) {
+        customCanvas.clearCanvas();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

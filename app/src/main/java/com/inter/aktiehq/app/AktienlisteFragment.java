@@ -3,6 +3,8 @@ package com.inter.aktiehq.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -171,22 +173,32 @@ public class AktienlisteFragment extends Fragment {
                         beaconListe); // Beispieldaten in einer ArrayList
 
 
+
+
+        //Liste der Beacons in Rootview einfpgen
         View rootView = inflater.inflate(R.layout.fragment_beaconliste, container, false);
 
-        View footerView = inflater.inflate(R.layout.main, container, false);
+        Canvas canvas = new Canvas();
+        Paint paint = new Paint();
+        paint.setColor(0x000000);
+        canvas.drawRect(50,50,50,50,paint );
+        rootView.draw(canvas);
+
+        //Chat am Footer
+        View footerView = inflater.inflate(R.layout.chat, container, false);
 
         //ListView myListView = (ListView) findViewById(R.id.swipe_refresh_layout_beaconliste);
-        LinearLayout myHeader = (LinearLayout) footerView.findViewById(R.id.footer);
+        LinearLayout chatFooter = (LinearLayout) footerView.findViewById(R.id.footer);
 
+        //Liste erstellen
         ListView beaconlisteListView = (ListView) rootView.findViewById(R.id.listview_beaconliste);
-
-        // Let's remove the myHeader view from it's current child...
-        ((ViewGroup) myHeader.getParent()).removeView(myHeader);
-
         beaconlisteListView.setAdapter(mBeaconlisteAdapter);
 
+        // Let's remove the footer view from it's current child...
+        ((ViewGroup) chatFooter.getParent()).removeView(chatFooter);
+
         // ... and put it inside ListView.
-        beaconlisteListView.addFooterView(myHeader);
+        beaconlisteListView.addFooterView(chatFooter);
 
         beaconlisteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -201,7 +213,7 @@ public class AktienlisteFragment extends Fragment {
         });
 
         //TCP
-        //rootView = inflater.inflate(R.layout.main, container, false);
+        //rootView = inflater.inflate(R.layout.chat, container, false);
         final EditText editText = (EditText) rootView.findViewById(R.id.editText);
         Button send = (Button) rootView.findViewById(R.id.send_button);
 

@@ -1,7 +1,7 @@
 package com.inter.aktiehq.app;
 
 /**
- * Created by jonas on 29.08.2016.
+ * Obsolete
  */
 
 import android.content.Context;
@@ -25,13 +25,15 @@ import android.widget.TextView;
 
 public class AktiendetailFragment extends Fragment {
 
+
     public AktiendetailFragment() {
     }
 
-   /* @Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_beacondetail, container, false);
+
 
         // Die AktiendetailActivity wurde über einen Intent aufgerufen
         // Wir lesen aus dem empfangenen Intent die übermittelten Daten aus
@@ -44,58 +46,58 @@ public class AktiendetailFragment extends Fragment {
 
             RelativeLayout relativeLayout = (RelativeLayout) rootView.findViewById(R.id.body);
             relativeLayout.addView(new BeacondetailView(getActivity()));
-            rootView= inflater.inflate(R.id.body, container, false);
+
 
         }
 
         return rootView;
-    }*/
+    }
 
-    @Override
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
 
-        /*
+        *//*
          *  Create the layout
-         */
+         *//*
         MyRelativeLayout layout = new MyRelativeLayout(getActivity());
         layout.setLayoutParams(
                 new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
 
-        /*
+        *//*
          *  Inflate your xml view
-         */
+         *//*
         View rootView = inflater.inflate(R.layout.fragment_beacondetail, container, false);
 
         TextView txt1 = (TextView) rootView.findViewById(R.id.text1);
 
         TextView txt2 = (TextView) rootView.findViewById(R.id.text2);
 
-        /*txt1.startAnimation(fadeIn);
+        *//*txt1.startAnimation(fadeIn);
         txt2.startAnimation(fadeIn);
 
         fadeIn.setDuration(1400);
-        fadeIn.setFillAfter(true);*/
+        fadeIn.setFillAfter(true);*//*
 
-        /*
+        *//*
          *  Add your view to the MyRelativeLayout you made, 'layout'
-         */
+         *//*
         layout.addView(rootView);
 
-        /*
+        *//*
          *  Return the 'layout' instead of just the 'rootView'
-         */
+         *//*
         return layout;
     }
 
 
 
-    /*
+    *//*
         *  Create a custom RelativeLayout and implement the inherited 'onDraw'
         *  method
-        */
+        *//*
     class MyRelativeLayout extends RelativeLayout
     {
         public MyRelativeLayout(Context context)
@@ -106,9 +108,9 @@ public class AktiendetailFragment extends Fragment {
         @Override
         protected void onDraw(Canvas canvas)
         {
-            /*
+            *//*
              *  Draw your rectangle
-             */
+             *//*
             Rect rectangle = new Rect(200, 56, 200, 112);
 
             Paint paint = new Paint();
@@ -119,6 +121,6 @@ public class AktiendetailFragment extends Fragment {
 
             super.onDraw(canvas);
         }
-    }
+    }*/
 
 }
