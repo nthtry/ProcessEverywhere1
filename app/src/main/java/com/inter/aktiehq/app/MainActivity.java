@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.inter.aktiehq.app.CanvasDetails.CanvasView;
+
 import org.altbeacon.beacon.Beacon;
 import org.altbeacon.beacon.BeaconConsumer;
 import org.altbeacon.beacon.BeaconManager;
@@ -37,10 +39,13 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
 
     private BeaconManager beaconManager;
 
+    private CanvasView customCanvas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.canvas);
 
         //BeaconManager instanziieren
         beaconManager = BeaconManager.getInstanceForApplication(this);
@@ -50,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer {
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
         beaconManager.bind(this);
+
+        customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
         Log.v(LOG_TAG, "In Callback-Methode: onCreate()");
     }

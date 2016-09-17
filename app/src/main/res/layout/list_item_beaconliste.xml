@@ -4,43 +4,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="horizontal">
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:stretchColumns="1"
-        android:shrinkColumns="1" android:layout_height="wrap_content"  android:layout_gravity="center_vertical">
-        <TableRow>
             <TextView xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/list_item_beaconliste_textview"
                 android:layout_width="200dp"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight">
-
-
             </TextView>
 
+            <com.inter.aktiehq.app.CanvasListe.CanvasListe
+                android:id="@+id/signature_canvas1"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:textColor="#FFFFFF"
+                android:background="#ff0000"/>
 
-        </TableRow>
-        <TableRow>
             <View android:id="@+id/alarm"
-                android:layout_width="28dp"
-                android:layout_height="111dp"
-                android:layout_centerHorizontal="true"
-                android:background="#000000"
-                android:visibility="visible"
-                android:layout_gravity="right" />
-        </TableRow>
-
-    </TableLayout>
-
-    </LinearLayout>
+                android:layout_width="18dp"
+                android:layout_height="fill_parent"
+                android:background="#000dd0"
+                android:visibility="visible"/>
 
 
 </LinearLayout>

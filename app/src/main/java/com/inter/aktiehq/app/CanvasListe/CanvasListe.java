@@ -1,13 +1,11 @@
-package com.inter.aktiehq.app.CanvasDetails;
+package com.inter.aktiehq.app.CanvasListe;
 
-/*
-    Klasse zum zeichnen der Elemente der Details
-
+/**
+ * Created by jonas on 17.09.2016.
  */
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,11 +14,15 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
-public class CanvasView extends View {
+
+/*
+    Klasse zum zeichnen der Elemente der Details
+
+ */
+
+
+public class CanvasListe extends View {
 
     private static final float TOLERANCE = 5;
     public int width;
@@ -30,10 +32,9 @@ public class CanvasView extends View {
     private Canvas mCanvas;
     private Path mPath;
     private Paint mPaint;
-    private Paint newPaint;
     private float mX, mY;
 
-    public CanvasView(Context c, AttributeSet attrs) {
+    public CanvasListe(Context c, AttributeSet attrs) {
         super(c, attrs);
         context = c;
 
@@ -65,7 +66,7 @@ public class CanvasView extends View {
         super.onDraw(canvas);
         // draw the mPath with the mPaint on the canvas when onDraw
         canvas.drawPath(mPath, mPaint);
-        canvas.drawRect(20,20,20,20,mPaint);
+        canvas.drawRect(5,5,5,5, mPaint);
 
         // Bitmap bitmap = BitmapFactory.decodeFile(filePath);
     }

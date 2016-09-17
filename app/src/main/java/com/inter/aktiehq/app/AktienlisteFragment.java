@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.inter.aktiehq.app.TCP.TCPClient;
@@ -192,6 +193,7 @@ public class AktienlisteFragment extends Fragment {
 
         //Liste erstellen
         ListView beaconlisteListView = (ListView) rootView.findViewById(R.id.listview_beaconliste);
+
         beaconlisteListView.setAdapter(mBeaconlisteAdapter);
 
         // Let's remove the footer view from it's current child...
