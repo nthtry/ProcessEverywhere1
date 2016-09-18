@@ -178,18 +178,20 @@ public class AktienlisteFragment extends Fragment {
 
         //Liste der Beacons in Rootview einfpgen
         View rootView = inflater.inflate(R.layout.fragment_beaconliste, container, false);
-
+/*
         Canvas canvas = new Canvas();
         Paint paint = new Paint();
         paint.setColor(0x000000);
         canvas.drawRect(50,50,50,50,paint );
         rootView.draw(canvas);
-
+*/
         //Chat am Footer
         View footerView = inflater.inflate(R.layout.chat, container, false);
 
         //ListView myListView = (ListView) findViewById(R.id.swipe_refresh_layout_beaconliste);
         LinearLayout chatFooter = (LinearLayout) footerView.findViewById(R.id.footer);
+
+        double x = chatFooter.getHeight();
 
         //Liste erstellen
         ListView beaconlisteListView = (ListView) rootView.findViewById(R.id.listview_beaconliste);
