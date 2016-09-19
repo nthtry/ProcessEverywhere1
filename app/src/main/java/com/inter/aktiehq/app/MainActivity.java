@@ -1,24 +1,28 @@
 package com.inter.aktiehq.app;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.le.BluetoothLeAdvertiser;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanSettings;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +35,7 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.MonitorNotifier;
 import org.altbeacon.beacon.RangeNotifier;
 import org.altbeacon.beacon.Region;
+import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 
 import java.util.Collection;
 
@@ -44,8 +49,12 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
     private ScanSettings mScanSettings;
     private ScanFilter mScanFilter;
     private BluetoothLeScanner mBluetoothLeScanner;
+    private int REQUEST_ENABLE_BT = 1;
+    private static final int PERMISSION_REQUEST_COARSE_LOCATION = 1;
+
 
     private BeaconManager beaconManager;
+    private BackgroundPowerSaver backgroundPowerSaver;
 
     private CanvasView customCanvas;
 
@@ -67,19 +76,34 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
         setContentView(R.layout.activity_main);
        // setContentView(R.layout.list_item_beaconliste);
 
+
+
         //BeaconManager instanziieren
         beaconManager = BeaconManager.getInstanceForApplication(this);
 
         //zum Decodieren des Bluetooth Bitstroms (2-3= ist hier angepasst http://www.software7.com/blog/creating-a-beacon-app-for-android-in-less-than-10-minutes-from-scratch/)
-        //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-       // beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-
-        //beaconManager.bind(this);
-
         // Detect the main Eddystone-UID frame:
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
 
+        backgroundPowerSaver = new BackgroundPowerSaver(this);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Android M Permission check
+            if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("This app needs location access");
+                builder.setMessage("Please grant location access so this app can detect beacons.");
+                builder.setPositiveButton(android.R.string.ok, null);
+                builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
+                    }
+                });
+                builder.show();
+            }
+        }
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
 
         //Compass
@@ -167,6 +191,32 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_COARSE_LOCATION: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "coarse location permission granted");
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("Functionality limited");
+                    builder.setMessage("Since location access has not been granted, this app will not be able to discover beacons when in the background.");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                        }
+
+                    });
+                    builder.show();
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
     public void onBeaconServiceConnect() {
 
         Log.d(TAG, "onBeaconServiceConnect");
@@ -210,6 +260,10 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
                 //Distanz rausfinden: average over 20sec
                 for (Beacon oneBeacon : beacons) {
                     Log.d(TAG, "distance: " + oneBeacon.getDistance() + " id:" + oneBeacon.getId1() + "/" + oneBeacon.getId2() + "/" + oneBeacon.getId3());
+/*                    setContentView(R.layout.activity_main);
+                    TextView text = (TextView) findViewById(R.id.list_item_beaconliste_textview);
+                    String string = (String) oneBeacon.getId1().toString();
+                    text.setText( oneBeacon.getId1().toString());*/
                 }
             }
         });
