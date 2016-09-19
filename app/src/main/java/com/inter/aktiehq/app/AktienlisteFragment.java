@@ -41,6 +41,13 @@ public class AktienlisteFragment extends Fragment {
     // Der ArrayAdapter ist jetzt eine Membervariable der Klasse AktienlisteFragment
     ArrayAdapter<String> mBeaconlisteAdapter;
 
+    //Beaconpart Beginn
+    String[] beaconlisteArray = {
+            "Beacon1",
+            "Beacon2",
+            "Beacon3"
+    };
+
     public AktienlisteFragment() {
     }
 
@@ -156,13 +163,6 @@ public class AktienlisteFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Log.v(LOG_TAG, "In Callback-Methode: onCreateView()");
-
-        //Beaconpart Beginn
-        String[] beaconlisteArray = {
-                "Beacon1",
-                "Beacon2",
-                "Beacon3"
-        };
 
         List<String> beaconListe = new ArrayList<>(Arrays.asList(beaconlisteArray));
 

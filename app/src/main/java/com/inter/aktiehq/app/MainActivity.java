@@ -89,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
         backgroundPowerSaver = new BackgroundPowerSaver(this);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_COARSE_LOCATION);
             // Android M Permission check
             if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -260,10 +262,18 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
                 //Distanz rausfinden: average over 20sec
                 for (Beacon oneBeacon : beacons) {
                     Log.d(TAG, "distance: " + oneBeacon.getDistance() + " id:" + oneBeacon.getId1() + "/" + oneBeacon.getId2() + "/" + oneBeacon.getId3());
-/*                    setContentView(R.layout.activity_main);
-                    TextView text = (TextView) findViewById(R.id.list_item_beaconliste_textview);
-                    String string = (String) oneBeacon.getId1().toString();
-                    text.setText( oneBeacon.getId1().toString());*/
+                    //setContentView(R.layout.activity_main);
+                    final String string = (String) oneBeacon.getId1().toString();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView text = (TextView) findViewById(R.id.list_item_beaconliste_textview);
+                            //TextView text = (TextView) findViewById(getFragmentManager().findFragmentById(R.id.swipe_refresh_layout_beaconliste));
+                            text.setText(string);
+                        }
+                    });
+
                 }
             }
         });
