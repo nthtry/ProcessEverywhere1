@@ -65,15 +65,19 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setContentView(R.layout.list_item_beaconliste);
+       // setContentView(R.layout.list_item_beaconliste);
 
         //BeaconManager instanziieren
         beaconManager = BeaconManager.getInstanceForApplication(this);
 
         //zum Decodieren des Bluetooth Bitstroms (2-3= ist hier angepasst http://www.software7.com/blog/creating-a-beacon-app-for-android-in-less-than-10-minutes-from-scratch/)
         //beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
-        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
+       // beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:0-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
+        //beaconManager.bind(this);
+
+        // Detect the main Eddystone-UID frame:
+        beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
         beaconManager.bind(this);
 
         customCanvas = (CanvasView) findViewById(R.id.signature_canvas);
@@ -167,8 +171,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
 
         Log.d(TAG, "onBeaconServiceConnect");
         //muss noch angepasst werden: null, null: Major und Minor, wir suchen alle (Identifier.parse("0f180e094769"))
-        // final Region region = new Region("myBeaons", "12348099bdd8bbc503020f180e094769", null, null);
-
+         final Region region = new Region("my", null, null, null);
 
         beaconManager.setMonitorNotifier(new MonitorNotifier() {
             //Wenn man eine Region betritt, wird das Ranging gestartet
@@ -212,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
         });
 
         try {
-            beaconManager.startMonitoringBeaconsInRegion(new Region("myRangingUniqueId", null, null, null));
+            beaconManager.startMonitoringBeaconsInRegion(new Region("my", null, null, null));
             Log.d(TAG, "startMonitor");
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -222,6 +225,7 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+/*
 
         // get the angle around the z-axis rotated
         float degree = Math.round(event.values[0]);
@@ -238,8 +242,11 @@ public class MainActivity extends AppCompatActivity implements BeaconConsumer, S
         ra.setFillAfter(true);
 
         // Start the animation
-        image.startAnimation(ra);
+       // image.startAnimation(ra);
         currentDegree = -degree;
+*/
+
+
 
     }
 

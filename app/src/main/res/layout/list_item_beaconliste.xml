@@ -16,10 +16,18 @@
 
             <com.inter.aktiehq.app.CanvasListe.CanvasListe
                 android:id="@+id/signature_canvas1"
-                android:layout_width="10dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:textColor="#FFFFFF"
                 android:background="#FFFFFF"/>
+
+
+                <ImageView
+                android:id="@+id/imageViewCompass"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/compass" />
 
 
 
